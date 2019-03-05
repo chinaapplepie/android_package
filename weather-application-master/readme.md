@@ -1034,3 +1034,65 @@ It is important to note here that the information retrieved from the server base
 So far, I can download the latest weather temperature from the server as long as I have Internet access. What will happen if the device does not have access to the Internet?
 
 到目前为止,只要有互联网连接我们就可以从服务器下载最新的天气温度信息.那么当没有网络连接时我们的应用会怎么样呢?
+
+If we don't have the Internet, we need to make sure that it doesn't crash:
+当没有网络时：
+
+public void btnClick(View view) {
+        ConnectivityManager connManager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
+        // 获取代表联网状态的NetWorkInfo对象
+        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+        // 获取当前的网络连接是否可用
+        if (networkInfo == null){
+            Toast.makeText(this,"The network connection is unavailable", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            boolean available = networkInfo.isAvailable();
+            if (available){
+                if(count==0){
+                    Log.i("Info", "The network connection is available");
+                    Toast.makeText(this, "The network connection is available", Toast.LENGTH_SHORT).show();
+                    new DownloadUpdate2().execute();
+                    count++;
+                }
+                else{
+                    Toast.makeText(this, "The update has been completed.", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Log.i("Info", "The current network connection is unavailable");
+                Toast.makeText(this, "The current network connection is unavailable", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+If we have Internet, we need to parse JSON file. For example, here's the process of getting the position and the temperature analytically:
+当拥有网络时：
+
+   //得到List的jasonArray
+   JSONObject jsonObject = new JSONObject(temperature);
+   JSONArray jsonArray = jsonObject.getJSONArray("list");
+   int length = jsonArray.length();
+   String[] temp;
+   temp = new String[length];
+   int i;
+   //设置位置
+   String location = jsonObject.getJSONObject("city").getString("name");
+   ((TextView) findViewById(R.id.tv_location)).setText(location);
+   //设置温度
+   for(i=0;i<length;i++){
+        temp[i] = jsonArray.getJSONObject(i).
+        getJSONObject("main").getString("temp");
+   }
+   //把华氏温度转为摄氏温度
+   for(i=0;i<5;i++){
+        int m=i*8;
+        Double temp0 = Double.parseDouble(temp[m]);
+        temp0 = temp0-273.15;
+        temp[m] = String.valueOf(Double.valueOf(temp0).intValue());
+    }
+    ((TextView) findViewById(R.id.temperature_of_the_day)).setText(temp[0]);
+    ((TextView) findViewById(R.id.temp_01)).setText(temp[8]+"℃");
+    ((TextView) findViewById(R.id.temp_02)).setText(temp[16]+"℃");
+    ((TextView) findViewById(R.id.temp_03)).setText(temp[24]+"℃");
+    ((TextView) findViewById(R.id.temp_04)).setText(temp[32]+"℃");
