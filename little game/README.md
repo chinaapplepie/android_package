@@ -4,7 +4,7 @@ Here is a game named Ground Squirrels Myth:
 This is a simulated game of whack-a-mole.
 A total of 20 rats, you only need to use the mouse to click on them.
 
-You should know:
+/br You should know:
 1.How to set imageview in code:
   https://blog.csdn.net/bigsungod/article/details/71170949
 2.How to use AlertDialog:
