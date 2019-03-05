@@ -1038,7 +1038,7 @@ So far, I can download the latest weather temperature from the server as long as
 If we don't have the Internet, we need to make sure that it doesn't crash:
 当没有网络时：
 
-public void btnClick(View view) {
+    public void btnClick(View view) {
         ConnectivityManager connManager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
         // 获取代表联网状态的NetWorkInfo对象
         NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
@@ -1066,26 +1066,27 @@ public void btnClick(View view) {
         }
     }
 
+
 If we have Internet, we need to parse JSON file. For example, here's the process of getting the position and the temperature analytically:
 当拥有网络时：
 
-   //得到List的jasonArray
-   JSONObject jsonObject = new JSONObject(temperature);
-   JSONArray jsonArray = jsonObject.getJSONArray("list");
-   int length = jsonArray.length();
-   String[] temp;
-   temp = new String[length];
-   int i;
-   //设置位置
-   String location = jsonObject.getJSONObject("city").getString("name");
-   ((TextView) findViewById(R.id.tv_location)).setText(location);
-   //设置温度
-   for(i=0;i<length;i++){
+    //得到List的jasonArray
+    JSONObject jsonObject = new JSONObject(temperature);
+    JSONArray jsonArray = jsonObject.getJSONArray("list");
+    int length = jsonArray.length();
+    String[] temp;
+    temp = new String[length];
+    int i;
+    //设置位置
+    String location = jsonObject.getJSONObject("city").getString("name");
+    ((TextView) findViewById(R.id.tv_location)).setText(location);
+    //设置温度
+    for(i=0;i<length;i++){
         temp[i] = jsonArray.getJSONObject(i).
         getJSONObject("main").getString("temp");
-   }
-   //把华氏温度转为摄氏温度
-   for(i=0;i<5;i++){
+    }
+    //把华氏温度转为摄氏温度
+    for(i=0;i<5;i++){
         int m=i*8;
         Double temp0 = Double.parseDouble(temp[m]);
         temp0 = temp0-273.15;
