@@ -2,6 +2,7 @@ The results of the run are shown:
 ![image](GoslingLovelace.gif)
 
 The core code:
+
 `   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
