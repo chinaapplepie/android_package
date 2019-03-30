@@ -2,7 +2,7 @@ The results of the run are shown:
 ![image](GoslingLovelace.gif)
 
 The core code:\<br>
-    `   `   `
+   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -14,6 +14,5 @@ The core code:\<br>
             setContentView(R.layout.port);
         }
     }
-        `   `   `
  
 
