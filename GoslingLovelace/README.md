@@ -2,9 +2,10 @@ The results of the run are shown:
 ![image](GoslingLovelace.gif)
 
 The core code:
-  @Override
+` @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setContentView(R.layout.land);
@@ -12,3 +13,5 @@ The core code:
             setContentView(R.layout.port);
         }
     }
+ 
+
